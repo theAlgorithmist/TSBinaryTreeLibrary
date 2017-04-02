@@ -2257,6 +2257,171 @@ describe('Postorder Traversal Tests', () => {
   });
 });
 
+describe('BFS Traversal Tests', () => {
+
+  const utils: TSMT$BTreeUtils<number> = new TSMT$BTreeUtils<number>();
+
+  it('BFS returns empty path for null node', () => {
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(null);
+    
+    expect(path.length).to.equal(0);
+  });
+
+  it('BFS singleton node test', () => {
+    let one: TSMT$BTreeNode<number>         = new TSMT$BTreeNode<number>(1.0);
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(one);
+
+    expect(path.length).to.equal(1);
+  });
+
+  it('BFS 2-node test #1', () => {
+    let one: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(1.0);
+    let two: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(2.0);
+
+    one.id    = "1";
+    two.id    = "2";
+    one.right = two;
+
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(one);
+
+    expect(path.length).to.equal(2);
+    expect(path[0].id).to.equal("1");
+    expect(path[1].id).to.equal("2");
+  });
+
+  it('BFS 2-node test #2', () => {
+    let one: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(1.0);
+    let two: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(2.0);
+
+    one.id   = "1";
+    two.id   = "2";
+    two.left = one;
+
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(two);
+
+    expect(path.length).to.equal(2);
+    expect(path[0].id).to.equal("2");
+    expect(path[1].id).to.equal("1");
+  });
+
+  it('BFS 3-node test', () => {
+    let one: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(1.0);
+    let two: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(2.0);
+    let three: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(3.0);
+
+    one.id    = "1";
+    two.id    = "2";
+    three.id  = "3";
+    two.left  = one;
+    two.right = three;
+
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(two);
+
+    expect(path.length).to.equal(3);
+    expect(path[0].id).to.equal("2");
+    expect(path[1].id).to.equal("1");
+    expect(path[2].id).to.equal("3");
+  });
+
+  it('BFS 4-node test #1', () => {
+    let one: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(1.0);
+    let two: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(2.0);
+    let three: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(3.0);
+    let zero: TSMT$BTreeNode<number>  = new TSMT$BTreeNode<number>(0);
+
+    one.id    = "1";
+    two.id    = "2";
+    three.id  = "3";
+    zero.id   = "0";
+    two.left  = one;
+    two.right = three;
+    one.left  = zero;
+
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(two);
+
+    expect(path.length).to.equal(4);
+    expect(path[0].id).to.equal("2");
+    expect(path[1].id).to.equal("1");
+    expect(path[2].id).to.equal("3");
+    expect(path[3].id).to.equal("0");
+  });
+
+  it('BFS 4-node test #2', () => {
+    let one: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(1.0);
+    let two: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(2.0);
+    let three: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(3.0);
+    let four: TSMT$BTreeNode<number>  = new TSMT$BTreeNode<number>(4.0);
+
+    one.id      = "1";
+    two.id      = "2";
+    three.id    = "3";
+    four.id     = "4";
+    two.left    = one;
+    two.right   = three;
+    three.right = four;
+
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(two);
+
+    expect(path.length).to.equal(4);
+    expect(path[0].id).to.equal("2");
+    expect(path[1].id).to.equal("1");
+    expect(path[2].id).to.equal("3");
+    expect(path[3].id).to.equal("4");
+  });
+
+  it('BFS multi-node test', () => {
+    let tree: TSMT$AVLTree<number> = new TSMT$AVLTree<number>();
+
+    let zero: TSMT$BTreeNode<number>  = new TSMT$BTreeNode(0);
+    let one: TSMT$BTreeNode<number>   = new TSMT$BTreeNode(1.0);
+    let two: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(2.0);
+    let three: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(3.0);
+    let four: TSMT$BTreeNode<number>  = new TSMT$BTreeNode<number>(4.0);
+    let five: TSMT$BTreeNode<number>  = new TSMT$BTreeNode<number>(5.0);
+    let six: TSMT$BTreeNode<number>   = new TSMT$BTreeNode<number>(6.0);
+    let seven: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(7.0);
+    let eight: TSMT$BTreeNode<number> = new TSMT$BTreeNode<number>(8.0);
+    let nine: TSMT$BTreeNode<number>  = new TSMT$BTreeNode<number>(9.0);
+
+    zero.id  = "0";
+    one.id   = "1";
+    two.id   = "2";
+    three.id = "3";
+    four.id  = "4";
+    five.id  = "5";
+    six.id   = "6";
+    seven.id = "7";
+    eight.id = "8";
+    nine.id  = "9";
+
+    tree.insert(nine);
+    tree.insert(eight);
+    tree.insert(seven);
+    tree.insert(six);
+    tree.insert(five);
+    tree.insert(four);
+    tree.insert(three);
+    tree.insert(two);
+    tree.insert(one);
+    tree.insert(zero);
+
+    let root: TSMT$BTreeNode<number>        = tree.root;
+    let path: Array<TSMT$BTreeNode<number>> = utils.BFS(root);
+
+    expect(path.length).to.equal(10);
+    expect(path[0].id).to.equal(six.id);
+    expect(path[1].id).to.equal(two.id);
+    expect(path[2].id).to.equal(eight.id);
+    expect(path[3].id).to.equal(one.id);
+    expect(path[4].id).to.equal(four.id);
+    expect(path[5].id).to.equal(seven.id);
+    expect(path[6].id).to.equal(nine.id);
+    expect(path[7].id).to.equal(zero.id);
+    expect(path[8].id).to.equal(three.id);
+    expect(path[9].id).to.equal(five.id);
+  });
+});
+
 describe('TSMT$AVLTree<T> Clear/FromArray Tests', () => {
 
   it('fromArray does nothing on empty or null array', () => {

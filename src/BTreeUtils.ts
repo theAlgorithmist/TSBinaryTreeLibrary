@@ -19,7 +19,7 @@
  * 
  * @author Jim Armstrong (www.algorithmist.net)
  * 
- * @version 1.0
+ * @version 1.1 (added BFS)
  */
 
  import {TSMT$BTreeNode} from './BTreeNode';
@@ -27,7 +27,7 @@
 
  export class TSMT$BTreeUtils<T>
  {
-   protected _path: Array<TSMT$BTreeNode<T>>;
+   protected _path: Array<TSMT$BTreeNode<T>>;   // cache search path for possible (future) reuse
 
    constructor()
    {
@@ -115,6 +115,39 @@
      this._path = new Array<TSMT$BTreeNode<T>>();
 
      this.__postorderTraversal(node);
+
+     return this._path.slice();
+   }
+
+  /**
+   * Perform an breadth-first or level traversal, starting at the input node, and return the node path in an array
+   * 
+   * @param node: TSMT$BTreeNode<T> Reference to starting node
+   * 
+   * @return Array<TSMT$BTreeNode<T>> BFS path
+   */
+   public BFS(node: TSMT$BTreeNode<T>): Array<TSMT$BTreeNode<T>>
+   { 
+     if (node == undefined || node == null)
+       return [];
+
+     this._path = new Array<TSMT$BTreeNode<T>>();
+     let list: Array<TSMT$BTreeNode<T>> = new Array<TSMT$BTreeNode<T>>();
+
+     list.push(node);
+     let n: TSMT$BTreeNode<T>;
+
+     while (list.length > 0)
+     {
+       n = list.shift();
+       this._path.push(n);
+
+       if (n.left != null)
+         list.push(n.left);
+
+       if (n.right != null)
+         list.push(n.right); 
+     }
 
      return this._path.slice();
    }

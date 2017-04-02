@@ -2,6 +2,7 @@
   "name": "AVLTree",
   "version": "1.0.0",
   "description": "TSMT AVL Tree",
+  "repository": "https://github.com/theAlgorithmist/TSBinaryTreeLibrary",
   "keywords": [
     "Typescript",
     "Programming",
