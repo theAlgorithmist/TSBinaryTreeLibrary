@@ -85,6 +85,7 @@ nodeDepth(node: TSMT$BTreeNode<T>): number
 inorder(node: TSMT$BTreeNode<T>): Array<TSMT$BTreeNode<T>>
 preorder(node: TSMT$BTreeNode<T>): Array<TSMT$BTreeNode<T>>
 postorder(node: TSMT$BTreeNode<T>): Array<TSMT$BTreeNode<T>>
+BFS(node: TSMT$BTreeNode<T>): Array<TSMT$BTreeNode<T>>
 toIds(path: Array<TSMT$BTreeNode<T>>): Array<string>
 toValues(path: Array<TSMT$BTreeNode<T>>): Array<number>
 ```
