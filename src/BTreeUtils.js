@@ -86,11 +86,11 @@ var TSMT$BTreeUtils = (function () {
         return this._path.slice();
     };
     /**
-     * Perform an breadth-first or level traversal, starting at the input node, and return the node path in an array
+     * Perform a breadth-first or level traversal, starting at the input node, and return the node path in an array
      *
      * @param node: TSMT$BTreeNode<T> Reference to starting node
      *
-     * @return Array<TSMT$BTreeNode<T>> BFS path
+     * @return Array<TSMT$BTreeNode<T>> breadth-first path
      */
     TSMT$BTreeUtils.prototype.BFS = function (node) {
         if (node == undefined || node == null)
